@@ -9,6 +9,7 @@ const Login = () => {
 
   const { signIn, googleLogin } = useContext(AuthContext);
 
+  // Login
   const handleLogin = e => {
     e.preventDefault();
 
@@ -17,9 +18,7 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    const user = { email, password }
-
-    // 
+    // Sign In 
     signIn(email, password)
       .then(result => {
         console.log(result.user);
@@ -40,16 +39,33 @@ const Login = () => {
           footer: '<a href="#">Why do I have this issue?</a>'
         });
       })
+  }
 
-    console.log(user);
-    // console.log(app)
+  // Show Password
+  const showPassword = () => {
+    const password = document.getElementById('pass');
+
+    if (password.type === 'password') {
+      password.type = 'text'
+    }
+    else {
+      password.type = 'password'
+    }
   }
 
 
+  // Google Login
   const handleGoogleLogin = () => {
     googleLogin()
       .then(result => {
         console.log(result.user);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Signed In",
+          showConfirmButton: false,
+          timer: 1500
+        });
       })
       .catch(error => {
         console.error(error);
@@ -73,7 +89,11 @@ const Login = () => {
               <label className="label">
                 <span className="label-text text-black font-semibold">Password</span>
               </label>
-              <input type="password" name="password" placeholder="Password" className="input input-bordered text-white" required />
+              <input type="password" name="password" placeholder="Password" className="input input-bordered text-white" required id="pass" />
+              <label className="flex justify-normal">
+                <input onClick={showPassword} type="checkbox" /><span className="ms-2">Show Password</span>
+              </label>
+
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover text-red-600 font-bold text-base">Forgot password?</a>
               </label>

@@ -10,6 +10,7 @@ const Register = () => {
 
   const { createUser, googleLogin } = useContext(AuthContext);
 
+  // Register
   const handleRegister = e => {
     e.preventDefault();
     const form = e.target;
@@ -35,6 +36,7 @@ const Register = () => {
 
 
     if (password.length > 6 && password.match(upperCaseLetters) && password.match(specialCharacter)) {
+
       // Firebase User
       createUser(email, password)
         .then(result => {
@@ -55,16 +57,38 @@ const Register = () => {
             text: `Error: ${err.message}`,
             footer: '<a href="#">Why do I have this issue?</a>'
           });
+
         })
 
     }
 
   }
 
+  // Show Password
+  const showPassword = () => {
+    const password = document.getElementById('pass');
+
+    if (password.type === 'password') {
+      password.type = 'text'
+    }
+    else {
+      password.type = 'password'
+    }
+  }
+
+
+  // Google Login 
   const handleGoogleLogin = () => {
     googleLogin()
       .then(result => {
         console.log(result.user);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Signed In",
+          showConfirmButton: false,
+          timer: 1500
+        });
       })
       .catch(error => {
         console.error(error);
@@ -99,8 +123,12 @@ const Register = () => {
                 <span className="label-text text-black font-semibold">Password</span>
               </label>
               <input type="password" name="password" placeholder="Password" className="input input-bordered text-white" required id="pass" />
+
+              <label className="flex justify-normal">
+                <input onClick={showPassword} type="checkbox" /><span className="ms-2">Show Password</span>
+              </label>
             </div>
-            
+
             <div className="form-control mt-6">
               <button className="btn">Register</button>
               <p className="text-base font-semibold mt-4">Already have an account ? Please <Link to="/login" className="text-green-600 font-bold">Login</Link> </p>
