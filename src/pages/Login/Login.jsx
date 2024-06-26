@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
 import Navber from "../Home/Navber";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
 
-  const { signIn } = useContext(AuthContext);
+  const { signIn, googleLogin } = useContext(AuthContext);
 
   const handleLogin = e => {
     e.preventDefault();
@@ -30,13 +31,31 @@ const Login = () => {
           timer: 1500
         });
       })
-      .catch(error => {
-        console.error(error);
+      .catch(err => {
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `Error: ${err.message}`,
+          footer: '<a href="#">Why do I have this issue?</a>'
+        });
       })
 
     console.log(user);
     // console.log(app)
   }
+
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then(result => {
+        console.log(result.user);
+      })
+      .catch(error => {
+        console.error(error);
+      })
+  }
+
 
   return (
     <>
@@ -64,6 +83,12 @@ const Login = () => {
               <p className="text-base font-semibold mt-4">Do not have an account ? Please <Link to="/register" className="text-red-600 font-bold">Register</Link> </p>
             </div>
           </form>
+          <div className="py-2 pb-10">
+            <button onClick={handleGoogleLogin} className="w-10/12 mx-auto hover:bg-slate-950  hover:text-white  bg-slate-200 rounded-xl p-2 flex items-center justify-around">
+              <FcGoogle className=" text-4xl me-2" />
+              <p className="text-2xl font-semibold">Sign in With Google</p>
+            </button>
+          </div>
         </div>
       </div>
     </>
