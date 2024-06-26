@@ -1,10 +1,9 @@
 import { Outlet } from "react-router-dom";
-import Navber from "../pages/Home/Navber";
+// import bannerImg from '../assets/mobile-store-banner.png'
 
 const Root = () => {
   return (
     <div>
-      <Navber></Navber>
       <Outlet></Outlet>
     </div>
   );

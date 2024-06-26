@@ -1,18 +1,21 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../provider/AuthProvider";
+import Navber from "../Home/Navber";
 
 const Register = () => {
+
+  const { createUser } = useContext(AuthContext);
 
   const handleRegister = e => {
     e.preventDefault();
     const form = e.target;
 
-    const fName = form.fName.value;
-    const lName = form.lName.value;
     const email = form.email.value;
     const password = form.password.value;
 
-    const user = { fName, lName, email, password };
+    // const user = { fName, lName, email, password };
 
     const upperCaseLetters = /[A-Z]/g;
     const specialCharacter = /[!"#$%&'()*+,-.:;<=>?@[\]^_`{|}~]/;
@@ -28,23 +31,35 @@ const Register = () => {
       Swal.fire("You must use a spectial character!");
     }
 
+
     if (password.length > 6 && password.match(upperCaseLetters) && password.match(specialCharacter)) {
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Your Registretion Successfull",
-        showConfirmButton: false,
-        timer: 1500
-      });
+      // Firebase User
+      createUser(email, password)
+        .then(result => {
+          console.log(result.user);
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your Registretion Successfull",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        })
+        .catch(error => {
+          console.error(error);
+        })
+
     }
 
-
-    console.log(user);
   }
 
 
 
   return (
+    <>
+    
+      
+    <Navber></Navber>
     <div className="hero min-h-screen bg-slate-200">
       <div className="card w-full bg-white max-w-sm shrink-0 shadow-2xl">
         <form onSubmit={handleRegister} className="card-body  ">
@@ -77,6 +92,7 @@ const Register = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 

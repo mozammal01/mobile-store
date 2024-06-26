@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import NavberLogo from "../../assets/images.png"
+import UserImg from "../../assets/user.png"
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Navber = () => {
+
+  const { user, logOut } = useContext(AuthContext);
 
   const navLinks = <>
     <li className="font-semibold"><Link to="/">Home</Link></li>
@@ -11,7 +16,7 @@ const Navber = () => {
 
 
   return (
-    <div className="navbar max-w-6xl mx-auto">
+    <div className="navbar bg-transparent max-w-6xl mx-auto">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -42,7 +47,21 @@ const Navber = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <Link to='/login'><a className="btn">Login</a></Link>
+        {
+          user ?
+            <div className="flex items-center">
+              <a onClick={logOut} className="btn">LogOut</a>
+              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar ms-2 items-center">
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src={UserImg} />
+                </div>
+              </div>
+            </div> :
+
+            <Link to='/login'><a className="btn">Login </a></Link>
+        }
       </div>
     </div>
   );
