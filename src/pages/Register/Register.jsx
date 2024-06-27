@@ -90,8 +90,14 @@ const Register = () => {
           timer: 1500
         });
       })
-      .catch(error => {
-        console.error(error);
+      .catch(err => {
+        console.error(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `Error: ${err.message}`,
+          footer: '<a href="#">Why do I have this issue?</a>'
+        });
       })
   }
 

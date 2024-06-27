@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, GoogleAuthProvider } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, GoogleAuthProvider, sendPasswordResetEmail } from 'firebase/auth';
 import PropTypes from 'prop-types';
 import { createContext, useEffect, useState } from 'react';
 import app from '../../firebase/firebase.config';
@@ -41,6 +41,12 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, googleProvider);
   }
 
+  // Reset Password
+
+  const resetPassword = (email) => {
+    return sendPasswordResetEmail(auth, email)
+  }
+
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, currentUser => {
       console.log('User in the auth state changed', currentUser)
@@ -55,9 +61,10 @@ const AuthProvider = ({ children }) => {
     }
   }, [])
 
+
   // Loading
   if (loading) {
-    return <span className="loading loading-spinner loading-lg"></span>
+    return <div className='min-w-full mx-auto'><span className="loading loading-spinner loading-lg"></span></div>
   }
 
 
@@ -67,7 +74,8 @@ const AuthProvider = ({ children }) => {
     createUser,
     signIn,
     logOut,
-    googleLogin
+    googleLogin,
+    resetPassword
   }
 
   return (

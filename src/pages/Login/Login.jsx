@@ -7,7 +7,7 @@ import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
 
-  const { signIn, googleLogin } = useContext(AuthContext);
+  const { signIn, googleLogin, resetPassword } = useContext(AuthContext);
 
   // Login
   const handleLogin = e => {
@@ -53,6 +53,26 @@ const Login = () => {
     }
   }
 
+  // Reset Password 
+  const forgetPassword = () => {
+    const email = document.getElementById('email').value;
+
+    resetPassword(email)
+      .then(() => {
+        Swal.fire("Check Your Mail!");
+
+      })
+      .catch(err => {
+        console.error(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `Error: ${err.message}`,
+          footer: '<a href="#">Why do I have this issue?</a>'
+        });
+      })
+  }
+
 
   // Google Login
   const handleGoogleLogin = () => {
@@ -67,8 +87,14 @@ const Login = () => {
           timer: 1500
         });
       })
-      .catch(error => {
-        console.error(error);
+      .catch(err => {
+        console.error(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `Error: ${err.message}`,
+          footer: '<a href="#">Why do I have this issue?</a>'
+        });
       })
   }
 
@@ -83,7 +109,7 @@ const Login = () => {
               <label className="label">
                 <span className="label-text text-black font-semibold">Email</span>
               </label>
-              <input type="email" name="email" placeholder="Email" className="input input-bordered text-white" required />
+              <input type="email" name="email" placeholder="Email" className="input input-bordered text-white" id="email" required />
             </div>
             <div className="form-control">
               <label className="label">
@@ -95,7 +121,7 @@ const Login = () => {
               </label>
 
               <label className="label">
-                <a href="#" className="label-text-alt link link-hover text-red-600 font-bold text-base">Forgot password?</a>
+                <a href="#" onClick={forgetPassword} className="label-text-alt link link-hover text-red-600 font-bold text-base">Forgot password?</a>
               </label>
             </div>
             <div className="form-control mt-6">
