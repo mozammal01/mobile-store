@@ -78,7 +78,7 @@ const Register = () => {
 
 
   // Google Login 
-  const handleGoogleLogin = () => {
+  const handleGoogleLogin = () => {   
     googleLogin()
       .then(result => {
         console.log(result.user);

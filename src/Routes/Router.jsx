@@ -8,6 +8,7 @@ import Login from "../pages/Login/Login";
 import Home from "../pages/Home/Home";
 import Register from "../pages/Register/Register";
 import PrivateRoutes from "./PrivateRoutes";
+import AllProduct from "../pages/AllProduct/AllProduct";
 
 
 const router = createBrowserRouter([
@@ -18,6 +19,11 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>
+      },
+      {
+        path: "/allProduct",
+        element: <AllProduct></AllProduct>,
+        loader: () => fetch('http://localhost:4000/mobiles')
       },
       {
         path: "/addProduct",
