@@ -1,3 +1,4 @@
+import { Pencil, Trash2 } from 'lucide-react';
 import PropTypes from 'prop-types';
 
 const ProductCard = ({ product }) => {
@@ -21,7 +22,12 @@ const ProductCard = ({ product }) => {
           <div className="card-actions justify-end">
             <div className="badge badge-outline py-2">{bName}</div>
             <div className="badge badge-outline">{category}</div>
+           
           </div>
+          <div className="join gap-5 mt-3 justify-end">
+              <button className="btn bg-green-400 text-black hover:text-white rounded-xl"><Pencil width={20} /></button>
+              <button className="btn bg-red-500 text-white rounded-xl"><Trash2 /></button>
+            </div>
         </div>
       </div>
     </div>

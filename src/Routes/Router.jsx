@@ -9,6 +9,7 @@ import Home from "../pages/Home/Home";
 import Register from "../pages/Register/Register";
 import PrivateRoutes from "./PrivateRoutes";
 import AllProduct from "../pages/AllProduct/AllProduct";
+import UpdateProduct from "../pages/UpdateProduct/UpdateProduct";
 
 
 const router = createBrowserRouter([
@@ -28,6 +29,11 @@ const router = createBrowserRouter([
       {
         path: "/addProduct",
         element: <AddProduct></AddProduct>
+      },
+      {
+        path: "/updateProduct/:id",
+        element: <UpdateProduct></UpdateProduct>,
+        loader: ({params}) => fetch(`http://localhost:4000/mobiles/${params.id}`)
       },
       {
         path: "/myCart",

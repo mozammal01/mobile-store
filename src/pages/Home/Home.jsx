@@ -1,3 +1,4 @@
+import AllProduct from '../AllProduct/AllProduct';
 import Navber from './Navber';
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
           <Navber></Navber>
         </div>
       </div>
+      <AllProduct></AllProduct>
     </>
   );
 };
