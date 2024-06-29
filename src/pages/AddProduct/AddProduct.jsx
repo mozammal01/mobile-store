@@ -22,7 +22,7 @@ const AddProduct = () => {
 
     console.log(product);
 
-    fetch('http://localhost:4000/mobiles', {
+    fetch('https://mobile-store-server-sigma.vercel.app/mobiles', {
       method: "POST",
       headers: {
         'content-type': 'application/json'
@@ -34,7 +34,7 @@ const AddProduct = () => {
         console.log(data);
 
         // Pop Up
-        if(data.insertedId){
+        if (data.insertedId) {
           Swal.fire({
             position: "top-end",
             icon: "success",

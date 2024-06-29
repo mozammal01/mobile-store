@@ -8,9 +8,12 @@ import Login from "../pages/Login/Login";
 import Home from "../pages/Home/Home";
 import Register from "../pages/Register/Register";
 import PrivateRoutes from "./PrivateRoutes";
-import AllProduct from "../pages/AllProduct/AllProduct";
 import UpdateProduct from "../pages/UpdateProduct/UpdateProduct";
+import ProductCard from "../pages/ProductCard/ProductCard";
+import AllProduct from "../pages/AllProduct/AllProduct";
 
+
+// https://mobile-store-server-sigma.vercel.app/
 
 const router = createBrowserRouter([
   {
@@ -22,9 +25,13 @@ const router = createBrowserRouter([
         element: <Home></Home>
       },
       {
-        path: "/allProduct",
-        element: <AllProduct></AllProduct>,
-        loader: () => fetch('http://localhost:4000/mobiles')
+        path: "/products",
+        element: <AllProduct></AllProduct>
+      },
+      {
+        path: "/allProducts",
+        element: <ProductCard></ProductCard>,
+        loader: () => fetch('https://mobile-store-server-sigma.vercel.app/mobiles')
       },
       {
         path: "/addProduct",
@@ -33,7 +40,7 @@ const router = createBrowserRouter([
       {
         path: "/updateProduct/:id",
         element: <UpdateProduct></UpdateProduct>,
-        loader: ({params}) => fetch(`http://localhost:4000/mobiles/${params.id}`)
+        loader: ({ params }) => fetch(`https://mobile-store-server-sigma.vercel.app/mobiles/${params.id}`)
       },
       {
         path: "/myCart",

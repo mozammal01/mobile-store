@@ -8,7 +8,7 @@ import { FcGoogle } from "react-icons/fc";
 
 const Register = () => {
 
-  const { createUser, googleLogin } = useContext(AuthContext);
+  const { createUser, googleLogin, setLoading } = useContext(AuthContext);
 
   // Register
   const handleRegister = e => {
@@ -57,6 +57,8 @@ const Register = () => {
             text: `Error: ${err.message}`,
             footer: '<a href="#">Why do I have this issue?</a>'
           });
+          setLoading(false)
+          
 
         })
 
@@ -78,7 +80,7 @@ const Register = () => {
 
 
   // Google Login 
-  const handleGoogleLogin = () => {   
+  const handleGoogleLogin = () => {
     googleLogin()
       .then(result => {
         console.log(result.user);

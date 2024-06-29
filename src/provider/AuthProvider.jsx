@@ -52,25 +52,24 @@ const AuthProvider = ({ children }) => {
       console.log('User in the auth state changed', currentUser)
       setUser(currentUser);
       setLoading(false)
-      if(!user) {
-        setLoading(false)
-      }
+      
     })
     return () => {
       unSubscribe();
     }
-  }, [])
+  }, [user])
 
 
   // Loading
   if (loading) {
-    return <div className='min-w-full mx-auto'><span className="loading loading-spinner loading-lg"></span></div>
+    return <div className='h-screen flex items-center justify-center'><span className="loading loading-spinner loading-lg"></span></div>
   }
 
 
   const authInfo = {
     user,
     loading,
+    setLoading,
     createUser,
     signIn,
     logOut,

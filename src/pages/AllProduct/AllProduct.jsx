@@ -1,15 +1,49 @@
+import Swal from "sweetalert2";
 import ProductCard from "../ProductCard/ProductCard";
 import { useEffect, useState } from "react";
 
 const AllProduct = () => {
 
-  const [products , setProducts] =  useState([])
+  const [products, setProducts] = useState([])
 
 
+
+  const handleDelete = _id => {
+    fetch(`https://mobile-store-server-sigma.vercel.app/mobiles/${_id}`, {
+      method: "DELETE"
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        if (data.deletedCount > 0) {
+          Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          })
+            .then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire({
+                  title: "Deleted!",
+                  text: "Your file has been deleted.",
+                  icon: "success"
+                });
+              }
+            });
+
+          const remaining = products.filter(user => user._id !== _id)
+          setProducts(remaining);
+        }
+      })
+  }
   // const allProduct = useLoaderData()
 
   useEffect(() => {
-    fetch('http://localhost:4000/mobiles')
+    fetch('https://mobile-store-server-sigma.vercel.app/mobiles')
       .then(res => res.json())
       .then(data => {
         setProducts(data);
@@ -26,6 +60,7 @@ const AllProduct = () => {
               <ProductCard
                 key={product._id}
                 product={product}
+                handleDelete={handleDelete}
               ></ProductCard>)
           }
         </div>

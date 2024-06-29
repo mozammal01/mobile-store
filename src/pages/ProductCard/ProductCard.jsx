@@ -1,8 +1,10 @@
 import { Pencil, Trash2 } from 'lucide-react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-const ProductCard = ({ product }) => {
-  const { img, name, bName, category, price, rating, sDescription } = product;
+const ProductCard = ({ product, handleDelete }) => {
+  const { _id, img, name, bName, category, price, rating, sDescription } = product;
+
   return (
     <div className='text-white mt-10'>
       <div className="card bg-base-100 w-96 shadow-xl min-h-full">
@@ -22,12 +24,12 @@ const ProductCard = ({ product }) => {
           <div className="card-actions justify-end">
             <div className="badge badge-outline py-2">{bName}</div>
             <div className="badge badge-outline">{category}</div>
-           
+
           </div>
           <div className="join gap-5 mt-3 justify-end">
-              <button className="btn bg-green-400 text-black hover:text-white rounded-xl"><Pencil width={20} /></button>
-              <button className="btn bg-red-500 text-white rounded-xl"><Trash2 /></button>
-            </div>
+            <Link to={`/updateProduct/${_id}`}><button className="btn bg-green-400 text-black hover:text-white rounded-xl"><Pencil width={20} /></button></Link>
+            <button onClick={() => handleDelete(_id)} className="btn bg-red-500 text-white rounded-xl"><Trash2 /></button>
+          </div>
         </div>
       </div>
     </div>
@@ -35,7 +37,8 @@ const ProductCard = ({ product }) => {
 };
 
 ProductCard.propTypes = {
-  product: PropTypes.object
+  product: PropTypes.object,
+  handleDelete: PropTypes.func
 };
 
 export default ProductCard;

@@ -1,5 +1,6 @@
-import AllProduct from '../AllProduct/AllProduct';
+import { Link } from 'react-router-dom';
 import Navber from './Navber';
+import AllProduct from '../AllProduct/AllProduct';
 
 const Home = () => {
   return (
@@ -12,6 +13,10 @@ const Home = () => {
       >
         <div className='text-white'>
           <Navber></Navber>
+          <div>
+            <h2 className="text-6xl mt-40">Welcome To Our Mobile Store</h2>
+            <Link className='btn my-6' to="/addProduct">Add Product</Link>
+          </div>
         </div>
       </div>
       <AllProduct></AllProduct>
